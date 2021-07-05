@@ -23,3 +23,6 @@ grant select on sys.v_$session to username;
 grant select on sys.v_$sesstat to username;
 grant select on sys.v_$statname to username;
 grant SELECT ANY DICTIONARY to username;
+
+--предоставили неограниченную квоту на табличное пространство users
+alter user username quota unlimited on users;
