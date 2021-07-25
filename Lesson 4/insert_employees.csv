@@ -1,0 +1,11 @@
+﻿employee_id;first_name;last_name;email;phone_number;hire_date;manager_id;salary;department_id
+1;Петр;Первый;PetrPerviy@email.com;1111111;10.06.2021;1;100000;1
+2;Андрей;Второй;AndreyVtoroy@email.com;1111112;11.06.2021;1;80000;2
+3;Ирина;Третья;IrinaTretiya@email.com;1111113;12.06.2021;1;80000;3
+4;Александр;Четвертый;AlexChetvertiy@email.com;1111114;13.06.2021;1;80000;4
+5;Иван;Пятый;IvanPyatiy@email.com;1111115;14.06.2021;1;95000;1
+6;Екатерина;Шестая;EktrnShestaya@email.com;1111116;15.06.2021;5;70000;5
+7;Ян;Седьмой;YanSedmoy@email.com;1111117;16.06.2021;5;70000;5
+8;Ольга;Восьмая;OlgaVosmaya@email.com;1111118;17.06.2021;5;70000;5
+9;Алексей;Девятый;AlexeyDevyatiy@email.com;1111119;18.06.2021;5;70000;5
+10;Елена;Десятая;ElenaDesyataya@email.com;1111120;19.06.2021;5;70000;5
