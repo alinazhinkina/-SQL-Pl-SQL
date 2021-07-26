@@ -65,3 +65,75 @@ from table1
 where sumQ = (select max(sumQ) from table1)
 
 
+
+--PIVOT/UNPIVOT
+create table emp_table
+    ( emp_id    number(6)
+    , constraint     emp_table_emp_id_pk
+                       primary key (emp_id)
+    , salary         number(8,2)
+        constraint     emp_table_salary_min
+                     check (salary > 0)
+    , dep_id  number(4)
+    ) ;
+    
+insert into emp_table
+select employee_id, salary, department_id
+from employees;
+
+--считаем количество сотрудников в каждом отделе
+select *
+from( 
+        select emp_id, dep_id
+        from emp_table
+    )
+pivot(
+    count(emp_id)
+    for dep_id in (1, 5)
+    );
+----------------------------------------------------------------------------------------------
+
+create table deliv_table
+    ( goods_id       number(6)
+    , quantity          number(8,2)     
+    , emp_id       number(6)
+    ) ;
+    
+insert into deliv_table
+select goods_id, quantity, employee_id
+from goods_delivery;
+
+--считаем общее количество поставки каждого товара
+select *
+from( 
+        select g.goods_name g_name, dt.quantity quan
+        from deliv_table dt
+        join goods g on dt.goods_id = g.goods_id
+    )
+pivot(
+    sum(quan)
+    --for g_id in (30, 31, 32, 33, 34, 35, 36)
+    for g_name in ('огурец', 'яблоко', 'банан', 'кабачок', 'груша', 'помидор', 'апельсин')
+    )
+	
+---------------------------------------------------------------------------------------------
+
+with goods_table as(
+    select *
+    from( 
+            select goods_id, quantity
+            from deliv_table 
+        )
+    pivot(
+        sum(quantity)
+        for goods_id in (30, 31, 32, 33, 34, 35, 36)
+        )
+)
+
+select *
+from goods_table
+unpivot(
+    sum_quantity
+    for goods_id in ("30", "31", "32", "33", "34", "35", "36")
+)
+
