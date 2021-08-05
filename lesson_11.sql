@@ -24,3 +24,37 @@ create or replace view cost_fruits_vegetables as
     
 select * 
 from cost_fruits_vegetables;
+
+--triggers
+create table goods_audit
+    ( id        number(6)
+    ,	constraint  goods_audit_id_pk
+                    primary key (id)
+    , goods_id  number(6)
+    , username  varchar2(30)
+    ) ;
+	
+create sequence seq_goods_audit_id
+minvalue 1
+start with 1
+increment by 1;
+
+create or replace trigger goods_after_insert
+    after insert on goods
+    for each row
+declare
+    username varchar2(30);
+begin
+    select user into username
+    from dual;
+    
+    insert into goods_audit
+    values (seq_goods_audit_id.nextval, :new.goods_id, username);
+end;
+/
+
+insert into goods
+values (seq_goods_id.nextval, 'морковь', 4, 40);
+
+select *
+from goods_audit;
