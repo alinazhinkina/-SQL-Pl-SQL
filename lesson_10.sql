@@ -60,7 +60,7 @@ where employee_id = 2;
 
 -----------------------------------------------------------------
 
-create or replace NONEDITIONABLE package employee_actions as
+create or replace package employee_actions as
     procedure empFirstLastName(n in number default 0);
     function arithmetic(
         x in number default 0,
@@ -76,7 +76,7 @@ create or replace NONEDITIONABLE package employee_actions as
 end;
 /
 
-create or replace NONEDITIONABLE package body employee_actions as
+create or replace package body employee_actions as
     procedure empFirstLastName(
         n in number default 0)
     as 
