@@ -84,3 +84,55 @@ foreign key (collection_id) references pr_cred (collect_plan);
 alter table fact_oper
 add constraint fact_oper_col_id_fk 
 foreign key (collection_id) references pr_cred (collect_fact);
+
+--create sequences
+select max(id)
+from client;
+
+create sequence seq_client_id
+minvalue 1
+start with 6317144161625
+increment by 1;
+
+select max(id) 
+from pr_cred;
+
+create sequence seq_pr_cred_id
+minvalue 1
+start with 6446261209928
+increment by 1;
+
+select max(collection_id)
+from fact_oper;
+
+create sequence seq_fact_oper_collect_id
+minvalue 1
+start with 6446261209930
+increment by 1;
+
+select max(collection_id)
+from plan_oper;
+
+create sequence seq_plan_oper_collect_id
+minvalue 1
+start with 6446261209932
+increment by 1;
+
+--triggers
+create or replace trigger pr_cred_before_insert
+    before insert on pr_cred
+    for each row
+declare
+begin
+    :new.id := SEQ_PR_CRED_ID.nextval;
+end;
+/
+
+create or replace trigger fact_oper_before_insert
+    before insert on fact_oper
+    for each row
+declare
+begin
+    :new.f_date := sysdate;
+end;
+/
